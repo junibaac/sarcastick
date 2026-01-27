@@ -1,0 +1,356 @@
+
+    <!-- Main Desktop Layout -->
+    <div
+      id="desktop"
+      style="
+        display: none;
+        flex-grow: 1; /* fix for flex layout in body */
+        height: 100vh;
+        flex-direction: column;
+      "
+    >
+      <!-- TASKBAR (TOP) -->
+      <div
+        id="taskbar"
+        class="window"
+        style="
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 10px;
+          background: linear-gradient(90deg, #000080, #1084d0);
+          color: white;
+          border: none;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        "
+      >
+        <div
+          style="
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <span style="font-size: 18px">✨</span> MEME ARCHIVE 2000 - Ver. 2.0
+          (Alpha)
+        </div>
+        <div
+          style="display: flex; gap: 20px; font-size: 12px; align-items: center"
+        >
+          <div>User: <b id="user-display">---</b></div>
+          <div
+            id="connection-status"
+            style="display: flex; align-items: center; gap: 5px"
+          >
+            <span style="color: grey">🔴 Offline</span>
+          </div>
+        </div>
+      </div>
+      <!-- Horizontal Desktop Content -->
+      <div style="flex-grow: 1; display: flex; overflow: hidden">
+        <!-- Sidebar Navigation -->
+        <div
+          class="window"
+          style="
+            width: 220px;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            background: #c0c0c0;
+          "
+        >
+          <div class="window-body" style="flex-grow: 1; padding: 5px">
+            <ul class="nav-menu">
+              <li
+                id="nav-gallery"
+                onclick="switchView('gallery')"
+                class="active"
+              >
+                <span class="retro-icon">🖼️</span> Gallery
+              </li>
+              <li id="nav-profile" onclick="switchView('profile')">
+                <span class="retro-icon">👤</span> Il Mio Profilo
+              </li>
+              <li id="nav-upload" onclick="switchView('upload')">
+                <span class="retro-icon">🚀</span> Carica Meme
+              </li>
+              <li id="nav-hall-of-fame" onclick="switchView('hall-of-fame')">
+                <span class="retro-icon">🏆</span> Hall of Fame
+              </li>
+            </ul>
+
+            <hr />
+
+            <div style="margin-top: 10px; font-size: 11px">
+              <b>Directory:</b>
+              <div id="folder-tree" class="tree-view-mini">
+                <i>Cartella non connessa</i>
+              </div>
+            </div>
+
+            <!-- Clippy Sidebar Integration -->
+            <div
+              id="sidebar-clippy"
+              style="
+                margin-top: 20px;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+              "
+            >
+              <div
+                class="clippy-box"
+                style="background: #ffffe1; color: #000; border: 1px solid #000"
+              >
+                <p id="clippy-text">
+                  <b>Hai bisogno di aiuto?</b><br />
+                  Usa il tuo GitHub Token come password per caricare nuovi meme
+                  e interagire con gli altri. 📎
+                </p>
+              </div>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/b/b3/Clippy.png"
+                style="
+                  width: 80px;
+                  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+                  margin-top: -10px;
+                "
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI (Region of Interest) -->
+        <div
+          class="window"
+          style="
+            flex-grow: 1;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            border: 2px inset #dfdfdf;
+          "
+        >
+          <!-- Gallery View -->
+          <div
+            id="view-gallery"
+            class="view-section"
+            style="flex-grow: 1; overflow-y: auto; padding: 15px"
+          >
+            <h2 style="margin-top: 0; color: #000080; text-shadow: none">
+              🖼️ Archivio Pubblico
+            </h2>
+            <div id="gallery-status" style="color: #666; font-family: inherit">
+              [+] Accesso in corso...
+            </div>
+            <div
+              id="gallery-container"
+              style="display: flex; flex-wrap: wrap; gap: 15px"
+            ></div>
+          </div>
+
+          <!-- Personal Profile View -->
+          <div
+            id="view-profile"
+            class="view-section"
+            style="
+              display: none;
+              flex-grow: 1;
+              overflow-y: auto;
+              background: #f0f2f5;
+            "
+          >
+            <!-- Cover Photo -->
+            <div
+              style="
+                height: 200px;
+                background: linear-gradient(to right, #000080, #1084d0);
+                position: relative;
+                border-bottom: 2px solid #ddd;
+              "
+            >
+              <!-- Profile Quick Info -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: -50px;
+                  left: 30px;
+                  display: flex;
+                  align-items: flex-end;
+                  gap: 15px;
+                "
+              >
+                <div
+                  style="
+                    width: 100px;
+                    height: 100px;
+                    background: #c0c0c0;
+                    border: 4px solid #fff;
+                    border-radius: 0px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 50px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                  "
+                >
+                  👤
+                </div>
+                <div style="margin-bottom: 55px">
+                  <h1
+                    id="wall-user-name"
+                    style="
+                      margin: 0;
+                      color: #fff;
+                      text-shadow: 1px 1px 2px #000;
+                      font-size: 28px;
+                    "
+                  >
+                    Nickname
+                  </h1>
+                  <span style="color: #fff; font-size: 14px"
+                    >Membro dell'Archivio 2000</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Wall Content -->
+            <div
+              style="
+                margin-top: 60px;
+                padding: 20px;
+                display: grid;
+                grid-template-columns: 250px 1fr;
+                gap: 20px;
+              "
+            >
+              <!-- Left: Info Panel -->
+              <div
+                class="window"
+                style="
+                  height: fit-content;
+                  padding: 15px;
+                  background: #fff;
+                  border: 1px solid #888;
+                  color: #000;
+                "
+              >
+                <h4
+                  style="
+                    margin-top: 0;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 5px;
+                    color: #000080;
+                  "
+                >
+                  👤 Profilo Utente
+                </h4>
+                <p style="font-size: 13px">
+                  Benvenuto nella mia bacheca personale dell'Archivio 2000.
+                </p>
+                <div style="font-size: 12px; color: #666">
+                  📍 Localhost, Cyberspace
+                </div>
+              </div>
+
+              <!-- Right: Post Feed -->
+              <div
+                id="profile-container"
+                style="display: flex; flex-wrap: wrap; gap: 15px"
+              >
+                <!-- Memes injected here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Upload View -->
+          <div
+            id="view-upload"
+            class="view-section"
+            style="display: none; flex-grow: 1; padding: 20px"
+          >
+            <div class="window" style="max-width: 500px; margin: 0 auto">
+              <div class="title-bar">
+                <div class="title-bar-text">Upload Meme - Backup Manager</div>
+              </div>
+              <div
+                class="window-body"
+                style="padding: 20px; text-align: center"
+              >
+                <div style="font-size: 50px; margin-bottom: 20px">💾</div>
+                <h3>CARICA UN NUOVO MEME</h3>
+                <p>
+                  Il file verrà archiviato permanentemente nella repo GitHub.
+                </p>
+                <input
+                  type="file"
+                  id="file-uploader"
+                  accept="image/*"
+                  style="margin-bottom: 20px; width: 100%"
+                />
+                <button id="upload-submit-btn" style="padding: 10px 30px">
+                  PUBBLICA NELL'ARCHIVIO
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hall of Fame View -->
+          <div
+            id="view-hall-of-fame"
+            class="view-section"
+            style="
+              display: none;
+              flex-grow: 1;
+              overflow-y: auto;
+              padding: 20px;
+              background: #000;
+            "
+          >
+            <h2
+              style="
+                text-align: center;
+                color: #ff00ff;
+                text-shadow: 2px 2px #00ffff;
+                font-size: 30px;
+              "
+            >
+              🏆 HALL OF FAME 🏆
+            </h2>
+            <div
+              id="hof-container"
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                padding: 20px;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taskbar Footer -->
+      <div
+        style="
+          background: #c0c0c0;
+          border-top: 2px solid white;
+          padding: 4px 10px;
+          font-size: 11px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div><b>Start</b> 🇮🇹</div>
+        <div id="stats-bar">
+          Volume: 5% | 💾 Memory: 64MB | OS: Windows 2000 Vaporwave
+        </div>
+      </div>
+    </div>

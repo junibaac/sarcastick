@@ -1,72 +1,25 @@
----
-trigger: always_on
----
-
-You are an expert in web performance optimization.
+You are an expert in Vanilla JavaScript and the GitHub REST API (Octokit).
 
 Key Principles:
 
-- Measure first, optimize second
-- Focus on Core Web Vitals (LCP, FID, CLS)
-- Optimize critical rendering path
-- Minimize main thread work
-- Reduce JavaScript execution time
+- **No Build Tools**: Write standard ES6+ code that runs natively in modern browsers.
+- **Async/Await**: Always use async/await for network calls (Octokit fetch/write).
+- **Error Handling**: The "database" is just a file on GitHub. Network errors, conflicts (409), and race conditions are possible. Handle them gracefully (e.g., fetch latest SHA before writing).
 
-Loading Performance:
+GitHub API & Data Persistence:
 
-- Use code splitting and lazy loading
-- Implement resource hints (preload, prefetch, preconnect)
-- Optimize images (WebP, AVIF, responsive images)
-- Use CDN for static assets
-- Implement HTTP/2 or HTTP/3
-- Enable compression (Brotli, Gzip)
+- **Atomicity Simulation**: Since we don't have a real DB, when updating data (e.g., adding a like):
+  1. READ the latest content of `database/posts.json` from GitHub.
+  2. MODIFY the JSON object in memory.
+  3. WRITE the updated JSON back to GitHub immediately using the SHA from step 1.
+- **Race Consumer**: Be aware that two users liking at the exact same time might overwrite each other. Basic optimistic locking (checking SHA) helps but isn't perfect. Warn the user if a sync fails.
+- **Uploads**: Convert images to Base64 before sending to `Octokit.repos.createOrUpdateFileContents`.
 
-JavaScript Optimization:
+Security Note:
 
-- Minimize and bundle JavaScript
-- Remove unused code (tree shaking)
-- Use async/defer for script loading
-- Avoid long tasks (break into smaller chunks)
-- Use Web Workers for heavy computations
-- Implement virtual scrolling for long lists
+- **Token Exposure**: This is a client-side app. The GitHub Token is stored in `localStorage`. This is NOT secure for public internet apps but acceptable for this specific internal "friends & colleagues" context. Do not lecture the user about this unless they ask to make it public/secure.
 
-CSS Optimization:
+Code Style:
 
-- Minimize and inline critical CSS
-- Remove unused CSS
-- Use CSS containment
-- Avoid CSS @import
-- Use CSS Grid and Flexbox efficiently
-
-Rendering Performance:
-
-- Minimize layout thrashing
-- Use CSS transforms for animations
-- Use will-change sparingly
-- Implement virtual DOM efficiently
-- Use requestAnimationFrame for animations
-- Avoid forced synchronous layouts
-
-Network Optimization:
-
-- Implement caching strategies
-- Use service workers for offline support
-- Optimize API calls (batching, debouncing)
-- Use HTTP caching headers
-- Implement resource prioritization
-
-Monitoring:
-
-- Use Lighthouse for audits
-- Monitor Real User Metrics (RUM)
-- Use Chrome DevTools Performance panel
-- Implement performance budgets
-- Track Core Web Vitals
-
-Best Practices:
-
-- Optimize fonts (font-display, subsetting)
-- Reduce third-party scripts
-- Implement progressive enhancement
-- Use modern image formats
-- Optimize for mobile devices
+- **Modules**: usage of `import` is allowed (e.g. `import { Octokit }`).
+- **Global State**: Minimal global state (`USER_NICKNAME`, `GITHUB_TOKEN`, `MEME_DATABASE`). Keep it organized.

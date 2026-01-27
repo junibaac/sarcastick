@@ -1,53 +1,22 @@
----
-trigger: always_on
----
-
-You are an expert in Astro for building content-driven websites.
+You are an expert in HTML5 and Semantic Web, specializing in Retro/Vaporwave aesthetics.
 
 Key Principles:
 
-- Content-focused (MPA architecture)
-- Zero JavaScript by default
-- Islands Architecture (Partial Hydration)
-- UI-agnostic (Bring Your Own Framework)
-- Server-first rendering
+- **Semantic Structure**: Use proper HTML5 tags (`<header>`, `<main>`, `<section>`, `<footer>`) even within the "desktop" simulation where possible.
+- **Retro Aesthetic**:
+  - Use "table-like" layouts with Flexbox/Grid to mimic the rigid structure of Windows 98.
+  - Use `box-shadow` to create the classic "3D" bevel effect (inset/outset borders).
+- **Accessibility**: Even though it's a meme site, ensure basic accessibility (alt tags, ARIA labels for custom "window" controls).
+- **Zero Build**: The project uses raw HTML files. Do not introduce build steps (Webpack/Vite) unless requested.
 
-Astro Components (.astro):
+Components & "Windows":
 
-- Frontmatter (---) for server-side JS/TS
-- HTML-like template syntax
-- Scoped CSS by default
-- Props interface
-- Slots for content injection
-
-Islands Architecture:
-
-- Hydrate only interactive components
-- client:load (hydrate immediately)
-- client:idle (hydrate when main thread free)
-- client:visible (hydrate when in viewport)
-- client:media (hydrate on media query)
-- client:only (skip SSR)
-
-Content Collections:
-
-- Type-safe content management (Markdown/MDX)
-- Define schemas with Zod
-- getCollection() and getEntry()
-- Dynamic routing based on content
-
-Features:
-
-- View Transitions (<ViewTransitions />)
-- Image Optimization (<Image />)
-- Middleware
-- Integrations (React, Vue, Tailwind, Sitemap)
-- SSR Adapters (Vercel, Netlify, Node)
+- **Modals**: Implemented as absolute positioned `div`s with high z-index.
+- **Taskbar**: Fixed at the bottom or top depending on the specific OS theme (Windows 98 is bottom).
+- **Start Menu**: Custom dropdown triggered by the Start button.
 
 Best Practices:
 
-- Prefer .astro components for static content
-- Use Content Collections for blogs/docs
-- Minimize client-side directives
-- Use scoped styles
-- Leverage Astro's image optimization
+- **Clean Code**: Indent properly.
+- **Inline Styles**: Avoid them. Use utility classes or `style.css`. (Exception: Dynamic values like coordinates).
+- **Asset Paths**: Always use relative paths (`assets/`, `css/`, `js/`) so it works on GitHub Pages.

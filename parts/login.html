@@ -1,0 +1,118 @@
+
+    <!-- Login / Windows 98 Network Password Modal -->
+    <div
+      id="login-screen"
+      style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10000;
+        background: #008080;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="window"
+        style="width: 420px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5)"
+      >
+        <div class="title-bar">
+          <div class="title-bar-text">Sarcastick Login</div>
+          <div class="title-bar-controls">
+            <button id="login-help-btn" aria-label="Help">?</button>
+          </div>
+        </div>
+        <div
+          class="window-body"
+          style="padding: 15px; display: flex; gap: 15px"
+        >
+          <div style="flex-shrink: 0">
+            <img
+              src="https://win98icons.alexmeub.com/icons/png/key_web-0.png"
+              style="width: 48px"
+            />
+          </div>
+          <div style="flex-grow: 1">
+            <p style="margin-top: 0; margin-bottom: 20px; font-size: 13px">
+              Benvenuto su Sarcastick. Inserisci le tue credenziali di rete.
+            </p>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 80px 1fr;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 20px;
+              "
+            >
+              <label for="nickname-input" style="font-size: 13px"
+                >User name:</label
+              >
+              <input
+                type="text"
+                id="nickname-input"
+                style="width: 100%; border: 2px inset #fff"
+              />
+
+              <label for="password-input" style="font-size: 13px"
+                >Password:</label
+              >
+              <input
+                type="password"
+                id="password-input"
+                style="width: 100%; border: 2px inset #fff"
+              />
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 10px">
+              <button id="login-btn" style="width: 80px; font-weight: bold">
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome Modal (Windows 98 Style) -->
+    <div
+      id="welcome-window"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 11000;
+        background: rgba(0, 0, 0, 0.3);
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div class="window" style="width: 350px">
+        <div class="title-bar">
+          <div class="title-bar-text">Registration Complete</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close" onclick="closeWelcome()"></button>
+          </div>
+        </div>
+        <div class="window-body" style="text-align: center; padding: 20px">
+          <img
+            src="https://win98icons.alexmeub.com/icons/png/trust_desktop-0.png"
+            style="width: 48px; margin-bottom: 15px"
+          />
+          <h3 id="welcome-user-title">Benvenuto, User!</h3>
+          <p>
+            Il tuo account è stato creato con successo nell'archivio Sarcastick.
+          </p>
+          <div style="margin-top: 20px">
+            <button onclick="closeWelcome()" style="width: 80px">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
