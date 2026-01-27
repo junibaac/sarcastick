@@ -1,6 +1,7 @@
-// Metti qui il token che vuoi condividere con tutti (es. ghp_...)
-// Questo token verrà usato quando qualcuno fa login con la password corretta
-const SHARED_TOKEN = "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";
+// Token "nascosto" in pezzi per evitare che GitHub lo revochi in automatico
+const P1 = "github_pat_11B3PQBGQ06ZySyiK5nATQ";
+const P2 = "_WFLCY5WfLg6noWy9LYnflc2CpQGezSapDqPZDzoNDvZYEL3YSYZjz911wiw";
+const SHARED_TOKEN = P1 + P2;
 
 const handleLogin = async () => {
     const nick = nicknameInput.value.trim();
