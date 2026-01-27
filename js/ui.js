@@ -24,7 +24,7 @@ window.switchView = function (viewId) {
   
     if (memes.length === 0) {
       container.innerHTML =
-        '<p style="color:#666; width:100%; text-align:center;">La GRID è vuota. Carica il primo meme!</p>';
+        '<p style="color:#666; width:100%; text-align:center;">La grid è vuota. Carica il primo meme!</p>';
       return;
     }
   
@@ -76,10 +76,14 @@ window.switchView = function (viewId) {
     switchView("gallery");
   }
 
-  // UPLOAD LOGIC
+    // UPLOAD LOGIC
     const handleUpload = async () => {
+    if (!GITHUB_TOKEN) {
+        alert("Accesso 'Read Only'. Per caricare devi fare Login con il GitHub Token.");
+        return;
+    }
     if (!OCTOKIT) {
-        alert("GitHub non connesso!");
+        alert("Errore di connessione a GitHub.");
         return;
     }
     if (fileUploader.files.length === 0) {

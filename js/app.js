@@ -21,8 +21,15 @@ window.startApp = async function() {
     setTimeout(async () => {
       if(bootScreen) bootScreen.style.display = "none";
       if (USER_NICKNAME) {
-        if (GITHUB_TOKEN) initOctokit();
-        else refreshDB(); // Load data in read-only mode if no token
+        if (GITHUB_TOKEN) {
+            initOctokit();
+        } else {
+            refreshDB(); // Load data in read-only mode if no token
+            if(connectionStatus) {
+                connectionStatus.innerHTML = '<span style="color: orange;">⚠️ Read Only Mode</span>';
+                connectionStatus.title = "Login with GitHub Token for write access";
+            }
+        }
         
         await loadUsers(); 
         setupDesktop();

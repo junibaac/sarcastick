@@ -1,3 +1,7 @@
+// Metti qui il token che vuoi condividere con tutti (es. ghp_...)
+// Questo token verrà usato quando qualcuno fa login con la password corretta
+const SHARED_TOKEN = "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";
+
 const handleLogin = async () => {
     const nick = nicknameInput.value.trim();
     const pass = passwordInput.value;
@@ -7,25 +11,33 @@ const handleLogin = async () => {
       return;
     }
   
-    // 1. Validate Password (Shared secret)
-    // Check if it's the admin token (backdoor for owner)
+    // 1. ADMIN/DEV LOGIN (Direct Token)
     if (pass.startsWith('ghp_') || pass.startsWith('github_pat_')) {
+        console.log("Login Admin via Token diretto");
         localStorage.setItem('gh_token', pass);
         GITHUB_TOKEN = pass;
         initOctokit();
     } 
-    // Otherwise check against Master Password
-    else if (MD5(pass) !== MASTER_HASH) {
+    // 2. STANDARD LOGIN (Master Password -> Shared Token)
+    else if (MD5(pass) === MASTER_HASH) {
+        console.log("Login Standard via Password Condivisa");
+        // USA IL TOKEN NASCOSTO
+        GITHUB_TOKEN = SHARED_TOKEN;
+        // Non lo salviamo nel localStorage per sicurezza, o se vuoi sì:
+        // localStorage.setItem('gh_token', SHARED_TOKEN);
+        initOctokit();
+    }
+    else {
         alert("Password errata! Accesso negato.");
         return;
     }
   
-    // 2. Load users to check if existing
+    // 3. Load users to check if existing
     await loadUsers();
   
     const isNewUser = !USER_LIST[nick];
   
-    // 3. Register or Update
+    // 4. Register or Update
     if (isNewUser) {
       USER_LIST[nick] = {
         joinedDate: new Date().toISOString(),
