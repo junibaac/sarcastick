@@ -1,6 +1,6 @@
 // --- UI RENDERING & NAVIGATION ---
 
-window.switchView = function (viewId) {
+window.switchView = function (viewId, skipRender = false) {
     window.currentView = viewId;
     document
       .querySelectorAll(".view-section")
@@ -12,6 +12,8 @@ window.switchView = function (viewId) {
       .querySelectorAll(".nav-menu li")
       .forEach((li) => li.classList.remove("active"));
     document.getElementById(`nav-${viewId}`)?.classList.add("active");
+  
+    if (skipRender) return;
   
     if (viewId === "profile") renderProfile(USER_NICKNAME);
     if (viewId === "hall-of-fame") renderHallOfFame();
@@ -65,14 +67,17 @@ window.switchView = function (viewId) {
   
   function renderProfile(targetNick) {
     targetNick = targetNick || USER_NICKNAME;
-    window.switchView("profile");
+    window.switchView("profile", true);
     
     // Update Profile Header Name
     const wallName = document.getElementById("wall-user-name");
     if(wallName) wallName.textContent = targetNick;
 
+    const wallDesc = document.querySelector("#view-profile .window p");
+    if(wallDesc) wallDesc.textContent = `Benvenuto nella bacheca personale di ${targetNick}.`;
+
     // Show/Hide Quick Post Box (only if it's my own profile)
-    const quickPost = document.querySelector("#view-profile .window");
+    const quickPost = document.getElementById("profile-quick-post");
     if(quickPost) quickPost.style.display = (targetNick === USER_NICKNAME) ? "block" : "none";
 
     // Update names in the quick post box labels if present
