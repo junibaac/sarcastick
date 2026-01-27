@@ -149,6 +149,21 @@
             <div id="gallery-status" style="color: #666; font-family: inherit">
               [+] Accesso in corso...
             </div>
+
+            <!-- QUICK POST BOX (Facebook Style) -->
+            <div class="window" style="margin-bottom: 20px; border: 2px outset #dfdfdf; background: #d4d0c8; color: black; max-width: 600px;">
+                <div style="padding: 10px; border-bottom: 1px solid #a0a0a0; font-weight: bold; font-size: 13px;">
+                    📝 A cosa stai pensando?
+                </div>
+                <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px;">
+                    <textarea id="quick-post-text" placeholder="Scrivi qualcosa... (max 150 caratteri)" maxlength="150" style="width: 100%; height: 60px; font-family: Tahoma, sans-serif; padding: 5px; resize: none; border: 2px inset white;"></textarea>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <input type="file" id="quick-post-file" accept="image/*" style="font-size: 11px;">
+                        <button id="quick-post-btn" onclick="handleQuickPost()" style="padding: 5px 15px; font-weight: bold;">Pubblica</button>
+                    </div>
+                </div>
+            </div>
             <div
               id="gallery-container"
               style="display: flex; flex-wrap: wrap; gap: 15px"

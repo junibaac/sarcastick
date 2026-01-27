@@ -142,3 +142,73 @@ window.switchView = function (viewId) {
     };
     reader.readAsDataURL(file);
     };
+
+    // QUICK POST LOGIC (Facebook Style)
+    window.handleQuickPost = async () => {
+        const textInput = document.getElementById("quick-post-text");
+        const fileInput = document.getElementById("quick-post-file");
+        const btn = document.getElementById("quick-post-btn");
+
+        const text = textInput.value.trim();
+        const file = fileInput.files[0];
+
+        if (!GITHUB_TOKEN) {
+            alert("Accesso 'Read Only'. Fai Login con Password per postare!");
+            return;
+        }
+        if (!file) {
+            alert("Devi allegare almeno UNA foto!");
+            return;
+        }
+
+        // Disable UI
+        btn.disabled = true;
+        btn.textContent = "Pubblicazione...";
+
+        const reader = new FileReader();
+        reader.onload = async () => {
+            const base64 = reader.result.split(",")[1];
+            // Use text as name, fallback to filename if empty
+            const postName = text || file.name; 
+            const fileName = `${Date.now()}_${file.name.replace(/\s+/g, "_")}`;
+
+            try {
+                 // 1. Upload Image
+                 await OCTOKIT.rest.repos.createOrUpdateFileContents({
+                    owner: REPO_OWNER,
+                    repo: REPO_NAME,
+                    path: `uploads/${fileName}`,
+                    message: `New Quick Post: ${fileName}`,
+                    content: base64,
+                });
+
+                // 2. Update DB
+                const newPost = {
+                    id: Date.now(),
+                    name: postName,
+                    fileName: fileName,
+                    url: `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/uploads/${fileName}`,
+                    uploadedBy: USER_NICKNAME,
+                    uploadDate: new Date().toISOString(),
+                    likedBy: [],
+                    comments: [],
+                };
+
+                MEME_DATABASE.push(newPost);
+                await syncDB();
+
+                alert("Post pubblicato!");
+                textInput.value = "";
+                fileInput.value = "";
+                refreshDB();
+
+            } catch (e) {
+                console.error(e);
+                alert("Errore durante il post: " + e.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Pubblica";
+            }
+        };
+        reader.readAsDataURL(file);
+    }
