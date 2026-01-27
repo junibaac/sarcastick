@@ -23,8 +23,7 @@ const handleLogin = async () => {
         console.log("Login Standard via Password Condivisa");
         // USA IL TOKEN NASCOSTO
         GITHUB_TOKEN = SHARED_TOKEN;
-        // Non lo salviamo nel localStorage per sicurezza, o se vuoi sì:
-        // localStorage.setItem('gh_token', SHARED_TOKEN);
+        localStorage.setItem('gh_token', SHARED_TOKEN);
         initOctokit();
     }
     else {
@@ -66,4 +65,12 @@ const handleLogin = async () => {
   
   window.closeWelcome = function() {
       document.getElementById('welcome-window').style.display = 'none';
+  }
+
+  window.logout = function() {
+      if(confirm("Vuoi disconnetterti e tornare alla schermata di login?")) {
+          localStorage.removeItem("meme_user_nickname");
+          localStorage.removeItem("gh_token");
+          location.reload();
+      }
   }
