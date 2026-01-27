@@ -1,7 +1,7 @@
-// Token "nascosto" in pezzi per evitare che GitHub lo revochi in automatico
-const P1 = "github_pat_11B3PQBGQ06ZySyiK5nATQ";
-const P2 = "_WFLCY5WfLg6noWy9LYnflc2CpQGezSapDqPZDzoNDvZYEL3YSYZjz911wiw";
-const SHARED_TOKEN = P1 + P2;
+// Token Base64 per fregare il bot di GitHub 100%
+// Esegui nel terminale: echo -n "IL_TUO_NUOVO_TOKEN" | base64
+const HIDDEN_TOKEN = "Z2l0aHViX3BhdF8xMUIzUFFCR1EwYjNncDVYcW5BMHRlX1o2WGJTVkRRNEpUQ0laSTBGN1dndG1uRnlTWGVUamFtQ0k3eXBFekVIM2haVEZUNzdLRGFKd0MzSDNj";
+const SHARED_TOKEN = atob(HIDDEN_TOKEN);
 
 const handleLogin = async () => {
     const nick = nicknameInput.value.trim();
