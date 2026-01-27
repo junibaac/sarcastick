@@ -24,7 +24,7 @@ window.switchView = function (viewId) {
   
     if (memes.length === 0) {
       container.innerHTML =
-        '<p style="color:#666; width:100%; text-align:center;">Il Reticolo è vuoto. Carica il primo meme!</p>';
+        '<p style="color:#666; width:100%; text-align:center;">La GRID è vuota. Carica il primo meme!</p>';
       return;
     }
   
@@ -122,7 +122,7 @@ window.switchView = function (viewId) {
         MEME_DATABASE.push(newPost);
         await syncDB();
 
-        alert("Meme pubblicato sul Reticolo!");
+        alert("Meme pubblicato sulla GRID!");
         fileUploader.value = "";
         switchView("gallery");
         refreshDB();
@@ -132,7 +132,7 @@ window.switchView = function (viewId) {
         } finally {
         if(uploadSubmitBtn) {
             uploadSubmitBtn.disabled = false;
-            uploadSubmitBtn.textContent = "PUBBLICA SUL RETICOLO";
+            uploadSubmitBtn.textContent = "PUBBLICA SULLA GRID";
         }
         }
     };
