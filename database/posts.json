@@ -9,7 +9,13 @@
     "likedBy": [
       "test"
     ],
-    "comments": []
+    "comments": [
+      {
+        "user": "test",
+        "text": "gg",
+        "date": "21:25"
+      }
+    ]
   },
   {
     "id": 1769545196759,
