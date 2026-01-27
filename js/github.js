@@ -16,6 +16,10 @@ async function refreshDB() {
     MEME_DATABASE = JSON.parse(content);
     renderGallery(MEME_DATABASE);
     
+    // Hide Nyan Loader
+    const status = document.getElementById("gallery-status");
+    if(status) status.style.display = "none";
+    
   } catch (e) {
     console.error("Errore fetch DB:", e);
     if (e.status === 404 || e.message.includes('Unexpected token')) {

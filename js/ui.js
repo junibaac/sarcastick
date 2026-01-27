@@ -188,6 +188,7 @@ window.switchView = function (viewId) {
 
         // Disable UI
         btn.disabled = true;
+        document.body.classList.add("busy-cursor");
         const oldText = btn.textContent;
         btn.textContent = "Pubblicazione...";
 
@@ -237,6 +238,7 @@ window.switchView = function (viewId) {
             } finally {
                 btn.disabled = false;
                 btn.textContent = oldText;
+                document.body.classList.remove("busy-cursor");
             }
         };
         reader.readAsDataURL(file);
