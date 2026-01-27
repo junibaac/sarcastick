@@ -59,6 +59,10 @@ window.switchView = function (viewId) {
   }
   
   function renderProfile() {
+    // Update Profile Header Name
+    const wallName = document.getElementById("wall-user-name");
+    if(wallName) wallName.textContent = USER_NICKNAME;
+
     const myPosts = MEME_DATABASE.filter((p) => p.uploadedBy === USER_NICKNAME);
     renderGallery(myPosts, "profile-container");
   }
