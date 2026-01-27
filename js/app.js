@@ -220,10 +220,16 @@ loginBtn.addEventListener("click", async () => {
     return;
   }
 
-  // Verify Password Hash
-  if (MD5(pass) !== MASTER_HASH) {
-    alert("Password non corretta! Accesso alla rete negato.");
-    return;
+  // Check if it's a GitHub Token
+  if (pass.startsWith('ghp_') || pass.startsWith('github_pat_')) {
+      localStorage.setItem('gh_token', pass);
+      GITHUB_TOKEN = pass;
+      initOctokit();
+  } 
+  // Otherwise Verify Password Hash (Legacy/Reader mode)
+  else if (MD5(pass) !== MASTER_HASH) {
+      alert("Password non corretta! Inserisci un GitHub Token per scrivere, o la password admin per sola lettura.");
+      return;
   }
 
   // Load current users before logic
