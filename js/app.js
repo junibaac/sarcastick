@@ -196,7 +196,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     bootScreen.style.display = "none";
     if (USER_NICKNAME) {
       if (GITHUB_TOKEN) initOctokit();
-      await loadUsers(); // Load users for returning user
+      else refreshDB(); // Load data in read-only mode if no token
+      
+      await loadUsers(); 
       setupDesktop();
 
       // Show welcome back
