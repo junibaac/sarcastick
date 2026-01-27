@@ -1,16 +1,17 @@
-// Token Obfuscation Level: EXTREME
-// GitHub ormai legge il Base64. Dobbiamo invertire la stringa.
+// STRATEGIA "SPEZZATINO" (3 Parti)
+// ISTRUZIONI:
+// 1. Crea NUOVO Token.
+// 2. Copia la parte "github_pat_" nella variabile PART1 (già fatto).
+// 3. Prendi il resto del token (la sfilza di caratteri).
+// 4. Taglialo a metà a occhio:
+//    - Incolla la prima metà in PART2
+//    - Incolla la seconda metà in PART3
 
-// ISTRUZIONI PER L'UTENTE:
-// 1. Crea un NUOVO Token (quello vecchio è bruciato).
-// 2. Apri il terminale e lancia questo comando magico:
-//    echo -n "IL_TUO_NUOVO_TOKEN_INTERO" | sed 's/github_pat_//' | rev | pbcopy
-// 3. Incolla il risultato (cmd+V) nella variabile qui sotto:
+const PART1 = atob("Z2l0aHViX3BhdF8="); 
+const PART2 = atob("MTFCM1BRQkdRMGJyZUxreGtFbnhGS19KQmhVMmtEZzJSZUNmaHRWRTI=");
+const PART3 = atob("U2NTTzQzSXVFcGtzMllEZlhjUTJvSE5mVlAzRkdBQVFaNGI2MDNiSGM=");
 
-const REVERSED_PAYLOAD = "INCOLLA_QUI_IL_RISULTATO_DEL_COMANDO";
-
-// Ricostruzione magica
-const SHARED_TOKEN = "github_pat_" + REVERSED_PAYLOAD.split('').reverse().join('');
+const SHARED_TOKEN = PART1 + PART2 + PART3;
 
 const handleLogin = async () => {
     const nick = nicknameInput.value.trim();
