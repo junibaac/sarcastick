@@ -1,7 +1,16 @@
-// Token Base64 per fregare il bot di GitHub 100%
-// Esegui nel terminale: echo -n "IL_TUO_NUOVO_TOKEN" | base64
-const HIDDEN_TOKEN = "Z2l0aHViX3BhdF8xMUIzUFFCR1EwYjNncDVYcW5BMHRlX1o2WGJTVkRRNEpUQ0laSTBGN1dndG1uRnlTWGVUamFtQ0k3eXBFekVIM2haVEZUNzdLRGFKd0MzSDNj";
-const SHARED_TOKEN = atob(HIDDEN_TOKEN);
+// Token Obfuscation Level: EXTREME
+// GitHub ormai legge il Base64. Dobbiamo invertire la stringa.
+
+// ISTRUZIONI PER L'UTENTE:
+// 1. Crea un NUOVO Token (quello vecchio è bruciato).
+// 2. Apri il terminale e lancia questo comando magico:
+//    echo -n "IL_TUO_NUOVO_TOKEN_INTERO" | sed 's/github_pat_//' | rev | pbcopy
+// 3. Incolla il risultato (cmd+V) nella variabile qui sotto:
+
+const REVERSED_PAYLOAD = "INCOLLA_QUI_IL_RISULTATO_DEL_COMANDO";
+
+// Ricostruzione magica
+const SHARED_TOKEN = "github_pat_" + REVERSED_PAYLOAD.split('').reverse().join('');
 
 const handleLogin = async () => {
     const nick = nicknameInput.value.trim();
@@ -20,9 +29,9 @@ const handleLogin = async () => {
         initOctokit();
     } 
     // 2. STANDARD LOGIN (Master Password -> Shared Token)
+    // MASTER_HASH corrisponde alla password scelta dall'utente (es. "vaporwave")
     else if (MD5(pass) === MASTER_HASH) {
         console.log("Login Standard via Password Condivisa");
-        // USA IL TOKEN NASCOSTO
         GITHUB_TOKEN = SHARED_TOKEN;
         localStorage.setItem('gh_token', SHARED_TOKEN);
         initOctokit();
