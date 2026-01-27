@@ -38,7 +38,7 @@
       },
       {
         "user": "Icarus",
-        "text": "è nata l'era di SkyNet",
+        "text": "Ã¨ nata l'era di SkyNet",
         "date": "22:03"
       }
     ]
@@ -50,7 +50,9 @@
     "url": "https://raw.githubusercontent.com/junibaac/sarcastick/main/uploads/1769548240768_AI-meme-generator-2.webp",
     "uploadedBy": "Icarus",
     "uploadDate": "2026-01-27T21:10:42.171Z",
-    "likedBy": [],
+    "likedBy": [
+      "junibaac"
+    ],
     "comments": []
   }
 ]
