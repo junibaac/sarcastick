@@ -67,16 +67,13 @@
                 onclick="switchView('gallery')"
                 class="active"
               >
-                <span class="retro-icon">🖼️</span> Gallery
+                <span class="retro-icon">🏠</span> HOME
               </li>
               <li id="nav-profile" onclick="switchView('profile')">
-                <span class="retro-icon">👤</span> Il Mio Profilo
-              </li>
-              <li id="nav-upload" onclick="switchView('upload')">
-                <span class="retro-icon">🚀</span> Carica Meme
+                <span class="retro-icon">👤</span> PROFILO
               </li>
               <li id="nav-hall-of-fame" onclick="switchView('hall-of-fame')">
-                <span class="retro-icon">🏆</span> Hall of Fame
+                <span class="retro-icon">🏆</span> HALL OF FAME
               </li>
             </ul>
 
@@ -144,7 +141,7 @@
             style="flex-grow: 1; overflow-y: auto; padding: 15px"
           >
             <h2 style="margin-top: 0; color: #000080; text-shadow: none">
-              🖼️ Archivio Pubblico
+              🛰️ HOME
             </h2>
             <div id="gallery-status" style="color: #666; font-family: inherit">
               [+] Accesso in corso...
@@ -156,11 +153,11 @@
                     📝 A cosa stai pensando?
                 </div>
                 <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px;">
-                    <textarea id="quick-post-text" placeholder="Scrivi qualcosa... (max 150 caratteri)" maxlength="150" style="width: 100%; height: 60px; font-family: Tahoma, sans-serif; padding: 5px; resize: none; border: 2px inset white;"></textarea>
+                    <textarea class="post-text-input" placeholder="Scrivi qualcosa... (max 150 caratteri)" maxlength="150" style="width: 100%; height: 60px; font-family: Tahoma, sans-serif; padding: 5px; resize: none; border: 2px inset white;"></textarea>
                     
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <input type="file" id="quick-post-file" accept="image/*" style="font-size: 11px;">
-                        <button id="quick-post-btn" onclick="handleQuickPost()" style="padding: 5px 15px; font-weight: bold;">Pubblica</button>
+                        <input type="file" class="post-file-input" accept="image/*" style="font-size: 11px;">
+                        <button class="post-submit-btn" onclick="handleQuickPost(this)" style="padding: 5px 15px; font-weight: bold;">Pubblica</button>
                     </div>
                 </div>
             </div>
@@ -276,46 +273,33 @@
               </div>
 
               <!-- Right: Post Feed -->
-              <div
-                id="profile-container"
-                style="display: flex; flex-wrap: wrap; gap: 15px"
-              >
-                <!-- Memes injected here -->
+              <div style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- QUICK POST BOX IN PROFILE -->
+                <div class="window" style="border: 2px outset #dfdfdf; background: #d4d0c8; color: black; max-width: 600px;">
+                    <div style="padding: 10px; border-bottom: 1px solid #a0a0a0; font-weight: bold; font-size: 13px;">
+                        📝 Cosa c'è di nuovo, <span class="current-user-name">User</span>?
+                    </div>
+                    <div style="padding: 10px; display: flex; flex-direction: column; gap: 10px;">
+                        <textarea class="post-text-input" placeholder="Scrivi qualcosa... (max 150 caratteri)" maxlength="150" style="width: 100%; height: 60px; font-family: Tahoma, sans-serif; padding: 5px; resize: none; border: 2px inset white;"></textarea>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <input type="file" class="post-file-input" accept="image/*" style="font-size: 11px;">
+                            <button class="post-submit-btn" onclick="handleQuickPost(this)" style="padding: 5px 15px; font-weight: bold;">Pubblica</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    id="profile-container"
+                    style="display: flex; flex-wrap: wrap; gap: 15px"
+                >
+                    <!-- Memes injected here -->
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Upload View -->
-          <div
-            id="view-upload"
-            class="view-section"
-            style="display: none; flex-grow: 1; padding: 20px"
-          >
-            <div class="window" style="max-width: 500px; margin: 0 auto">
-              <div class="title-bar">
-                <div class="title-bar-text">Upload Meme - Backup Manager</div>
-              </div>
-              <div
-                class="window-body"
-                style="padding: 20px; text-align: center"
-              >
-                <div style="font-size: 50px; margin-bottom: 20px">💾</div>
-                <h3>CARICA UN NUOVO MEME</h3>
-                <p>
-                  Il file verrà archiviato permanentemente nella repo GitHub.
-                </p>
-                <input
-                  type="file"
-                  id="file-uploader"
-                  accept="image/*"
-                  style="margin-bottom: 20px; width: 100%"
-                />
-                <button id="upload-submit-btn" style="padding: 10px 30px">
-                  PUBBLICA NELL'ARCHIVIO
-                </button>
-              </div>
-            </div>
-          </div>
+
 
           <!-- Hall of Fame View -->
           <div

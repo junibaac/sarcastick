@@ -1,6 +1,7 @@
 // --- UI RENDERING & NAVIGATION ---
 
 window.switchView = function (viewId) {
+    window.currentView = viewId;
     document
       .querySelectorAll(".view-section")
       .forEach((v) => (v.style.display = "none"));
@@ -63,14 +64,22 @@ window.switchView = function (viewId) {
     const wallName = document.getElementById("wall-user-name");
     if(wallName) wallName.textContent = USER_NICKNAME;
 
+    // Update names in the quick post box labels if present
+    document.querySelectorAll(".current-user-name").forEach(el => {
+        el.textContent = USER_NICKNAME;
+    });
+
     const myPosts = MEME_DATABASE.filter((p) => p.uploadedBy === USER_NICKNAME);
     renderGallery(myPosts, "profile-container");
   }
-  
+
   function renderHallOfFame() {
-    const sorted = [...MEME_DATABASE].sort(
-      (a, b) => b.likedBy.length - a.likedBy.length,
-    );
+    // Sort by TOTAL engagement: LIKES + COMMENTS
+    const sorted = [...MEME_DATABASE].sort((a, b) => {
+      const engA = (a.likedBy?.length || 0) + (a.comments?.length || 0);
+      const engB = (b.likedBy?.length || 0) + (b.comments?.length || 0);
+      return engB - engA;
+    });
     renderGallery(sorted.slice(0, 10), "hof-container");
   }
 
@@ -154,10 +163,10 @@ window.switchView = function (viewId) {
     };
 
     // QUICK POST LOGIC (Facebook Style)
-    window.handleQuickPost = async () => {
-        const textInput = document.getElementById("quick-post-text");
-        const fileInput = document.getElementById("quick-post-file");
-        const btn = document.getElementById("quick-post-btn");
+    window.handleQuickPost = async (btn) => {
+        const parent = btn.closest(".window");
+        const textInput = parent.querySelector(".post-text-input");
+        const fileInput = parent.querySelector(".post-file-input");
 
         const text = textInput.value.trim();
         const file = fileInput.files[0];
@@ -179,6 +188,7 @@ window.switchView = function (viewId) {
 
         // Disable UI
         btn.disabled = true;
+        const oldText = btn.textContent;
         btn.textContent = "Pubblicazione...";
 
         const reader = new FileReader();
@@ -216,14 +226,17 @@ window.switchView = function (viewId) {
                 alert("Post pubblicato!");
                 textInput.value = "";
                 fileInput.value = "";
-                refreshDB();
+                
+                // Refresh views
+                if (window.currentView === "profile") renderProfile();
+                else refreshDB(); 
 
             } catch (e) {
                 console.error(e);
                 alert("Errore durante il post: " + e.message);
             } finally {
                 btn.disabled = false;
-                btn.textContent = "Pubblica";
+                btn.textContent = oldText;
             }
         };
         reader.readAsDataURL(file);
