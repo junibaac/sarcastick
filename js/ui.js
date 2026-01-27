@@ -96,6 +96,12 @@ window.switchView = function (viewId) {
     }
 
     const file = fileUploader.files[0];
+    
+    // Check File Size (Max 300KB)
+    if (file.size > 300 * 1024) {
+        alert(`File troppo grande! (${(file.size/1024).toFixed(1)}KB)\nIl limite è 300KB per non intasare l'archivio.`);
+        return;
+    }
     const reader = new FileReader();
 
     uploadSubmitBtn.disabled = true;
@@ -162,6 +168,12 @@ window.switchView = function (viewId) {
         }
         if (!file) {
             alert("Devi allegare almeno UNA foto!");
+            return;
+        }
+
+        // Check File Size (Max 300KB)
+        if (file.size > 300 * 1024) {
+            alert(`File troppo grande! (${(file.size/1024).toFixed(1)}KB)\nIl limite è 300KB.`);
             return;
         }
 
