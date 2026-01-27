@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/style.css" />
     <!-- Octokit for GitHub API -->
     <script type="module">
-        import { Octokit } from "https://esm.sh/octokit";
-        window.Octokit = Octokit;
+      import { Octokit } from "https://esm.sh/octokit";
+      window.Octokit = Octokit;
     </script>
     <style>
       /* Loading overlay for the "Drag Folder" instruction */
@@ -54,14 +54,14 @@
   <body>
     <!-- BACKGROUND -->
     <div class="vaporwave-bg">
-        <div class="sun"></div>
-        <div class="grid-floor"></div>
+      <div class="sun"></div>
+      <div class="grid-floor"></div>
     </div>
 
     <!-- VAPORWAVE CHICCHE -->
-    <div class="kanji-float" style="top: 10%; left: 5%;">麻薬</div>
-    <div class="kanji-float" style="top: 40%; right: 8%;">美学</div>
-    <div class="kanji-float" style="bottom: 15%; left: 10%;">虚無</div>
+    <div class="kanji-float" style="top: 10%; left: 5%">麻薬</div>
+    <div class="kanji-float" style="top: 40%; right: 8%">美学</div>
+    <div class="kanji-float" style="bottom: 15%; left: 10%">虚無</div>
     <div class="vhs-tracking"></div>
 
     <!-- Startup Sound -->
@@ -72,245 +72,605 @@
 
     <!-- BOOT SCREEN (WINDOWS 98 STYLE) -->
     <div id="boot-screen">
-        <div class="boot-text-left">
-            Phoenix BIOS 4.0 Release 6.0<br>
-            Copyright 1985-1998 Phoenix Technologies Ltd.<br>
-            All Rights Reserved<br><br>
-            CPU: Intel Pentium(r) II at 450 MHz<br>
-            Memory Test: 65536K OK<br><br>
-            Pri. Master Disk: LBA, Mode 4, 8455MB<br>
-            Sec. Master Disk: CD-ROM, Mode 4<br><br>
-            Searching for Boot Record from IDE-0..OK
+      <div class="boot-text-left">
+        Phoenix BIOS 4.0 Release 6.0<br />
+        Copyright 1985-1998 Phoenix Technologies Ltd.<br />
+        All Rights Reserved<br /><br />
+        CPU: Intel Pentium(r) II at 450 MHz<br />
+        Memory Test: 65536K OK<br /><br />
+        Pri. Master Disk: LBA, Mode 4, 8455MB<br />
+        Sec. Master Disk: CD-ROM, Mode 4<br /><br />
+        Searching for Boot Record from IDE-0..OK
+      </div>
+      <div class="win98-boot-container">
+        <div class="win98-logo-area">
+          <span style="font-size: 60px; font-weight: bold; font-style: italic"
+            >Microsoft</span
+          ><br />
+          <span
+            style="
+              font-size: 80px;
+              font-weight: bold;
+              color: #ff00ff;
+              letter-spacing: -5px;
+            "
+            >Windows<span style="font-size: 40px; vertical-align: super"
+              >98</span
+            ></span
+          >
         </div>
-        <div class="win98-boot-container">
-            <div class="win98-logo-area">
-                <span style="font-size: 60px; font-weight: bold; font-style: italic;">Microsoft</span><br>
-                <span style="font-size: 80px; font-weight: bold; color: #ff00ff; letter-spacing: -5px;">Windows<span style="font-size: 40px; vertical-align: super;">98</span></span>
-            </div>
-            <div class="win98-progress-container">
-                <div id="boot-progress" class="win98-progress-bar"></div>
-            </div>
+        <div class="win98-progress-container">
+          <div id="boot-progress" class="win98-progress-bar"></div>
         </div>
-        <div style="position: absolute; bottom: 10px; right: 10px; font-size: 12px; color: #808080;">
-            MEME_OS V1.0 - BUILD 2600
-        </div>
+      </div>
+      <div
+        style="
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          font-size: 12px;
+          color: #808080;
+        "
+      >
+        MEME_OS V1.0 - BUILD 2600
+      </div>
     </div>
-
-
 
     <!-- IMAGE MODAL (The Grid) -->
     <div id="image-modal">
-        <div class="modal-content">
-            <!-- Left: Image -->
-            <div class="modal-image-col">
-                <img id="modal-img" src="" alt="Meme">
-            </div>
-            
-            <!-- Right: Sidebar -->
-            <div class="modal-sidebar">
-                <!-- Header: User Info -->
-                <div class="modal-header">
-                    <div class="author-info">
-                        <span id="modal-author" class="author-name">Nome Utente</span>
-                        <span id="modal-date" class="post-date">2 ore fa</span>
-                    </div>
-                    <button onclick="closeModal()" style="background:transparent; color:#999; border:none; font-size:20px; padding:0; box-shadow:none;">&times;</button>
-                </div>
-
-                <!-- Description/Stats -->
-                <div style="padding: 10px 15px; border-bottom: 1px solid #444; background: #1a1a1a;">
-                    <div id="modal-title" style="margin-bottom: 5px; color: #ff00ff; font-weight: bold;">Post Caption...</div>
-                </div>
-
-                <!-- Comments List -->
-                <div id="comment-list" class="comment-container">
-                    <!-- Dynamic Comments -->
-                </div>
-
-                <!-- Footer: Actions & Input -->
-                <div class="modal-footer">
-                    <div class="action-bar">
-                        <div class="action-btn" onclick="voteCurrent()">
-                            👍 Like <span id="modal-votes">0</span>
-                        </div>
-                        <div class="action-btn">
-                            💬 Commenta
-                        </div>
-                    </div>
-                    <div class="input-area">
-                        <input type="text" id="comment-input" placeholder="Scrivi un segnale..." style="flex-grow: 1; padding: 8px; border: 1px solid #ff00ff; background: #000; color: #00ffff; border-radius: 0;">
-                        <button onclick="submitComment()" style="padding: 5px 15px;">INVIO</button>
-                    </div>
-                </div>
-            </div>
+      <div class="modal-content">
+        <!-- Left: Image -->
+        <div class="modal-image-col">
+          <img id="modal-img" src="" alt="Meme" />
         </div>
+
+        <!-- Right: Sidebar -->
+        <div class="modal-sidebar">
+          <!-- Header: User Info -->
+          <div class="modal-header">
+            <div class="author-info">
+              <span id="modal-author" class="author-name">Nome Utente</span>
+              <span id="modal-date" class="post-date">2 ore fa</span>
+            </div>
+            <button
+              onclick="closeModal()"
+              style="
+                background: transparent;
+                color: #999;
+                border: none;
+                font-size: 20px;
+                padding: 0;
+                box-shadow: none;
+              "
+            >
+              &times;
+            </button>
+          </div>
+
+          <!-- Description/Stats -->
+          <div
+            style="
+              padding: 10px 15px;
+              border-bottom: 1px solid #444;
+              background: #1a1a1a;
+            "
+          >
+            <div
+              id="modal-title"
+              style="margin-bottom: 5px; color: #ff00ff; font-weight: bold"
+            >
+              Post Caption...
+            </div>
+          </div>
+
+          <!-- Comments List -->
+          <div id="comment-list" class="comment-container">
+            <!-- Dynamic Comments -->
+          </div>
+
+          <!-- Footer: Actions & Input -->
+          <div class="modal-footer">
+            <div class="action-bar">
+              <div class="action-btn" onclick="voteCurrent()">
+                👍 Like <span id="modal-votes">0</span>
+              </div>
+              <div class="action-btn">💬 Commenta</div>
+            </div>
+            <div class="input-area">
+              <input
+                type="text"
+                id="comment-input"
+                placeholder="Scrivi un segnale..."
+                style="
+                  flex-grow: 1;
+                  padding: 8px;
+                  border: 1px solid #ff00ff;
+                  background: #000;
+                  color: #00ffff;
+                  border-radius: 0;
+                "
+              />
+              <button onclick="submitComment()" style="padding: 5px 15px">
+                INVIO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Login / Windows 98 Network Password Modal -->
-    <div id="login-screen" style="position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; background: #008080; display: none; align-items: center; justify-content: center;">
-        <div class="window" style="width: 420px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5);">
-            <div class="title-bar">
-                <div class="title-bar-text">Enter Network Password</div>
-                <div class="title-bar-controls">
-                    <button id="login-help-btn" aria-label="Help">?</button>
-                </div>
-            </div>
-            <div class="window-body" style="padding: 15px; display: flex; gap: 15px;">
-                <div style="flex-shrink: 0;">
-                    <img src="https://win98icons.alexmeub.com/icons/png/key_web-0.png" style="width: 48px;">
-                </div>
-                <div style="flex-grow: 1;">
-                    <p style="margin-top: 0; margin-bottom: 20px; font-size: 13px;">Enter your network password for Microsoft Networking.</p>
-                    
-                    <div style="display: grid; grid-template-columns: 80px 1fr; gap: 10px; align-items: center; margin-bottom: 20px;">
-                        <label for="nickname-input" style="font-size: 13px;">User name:</label>
-                        <input type="text" id="nickname-input" style="width: 100%; border: 2px inset #fff;">
-                        
-                        <label for="password-input" style="font-size: 13px;">Password:</label>
-                        <input type="password" id="password-input" style="width: 100%; border: 2px inset #fff;">
-                        
-                        <label for="domain-input" style="font-size: 13px;">Domain:</label>
-                        <input type="text" id="domain-input" value="MEME_CORP" disabled style="width: 100%; border: 2px inset #fff; background: #c0c0c0; color: #555;">
-                    </div>
-
-                    <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                        <button id="login-btn" style="width: 80px; font-weight: bold;">OK</button>
-                        <button id="login-cancel-btn" style="width: 80px;">Cancel</button>
-                    </div>
-                </div>
-            </div>
+    <div
+      id="login-screen"
+      style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10000;
+        background: #008080;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="window"
+        style="width: 420px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5)"
+      >
+        <div class="title-bar">
+          <div class="title-bar-text">Sarcastick Login</div>
+          <div class="title-bar-controls">
+            <button id="login-help-btn" aria-label="Help">?</button>
+          </div>
         </div>
-        <p style="position: absolute; bottom: 10px; right: 10px; color: white; font-family: sans-serif; font-size: 12px; font-weight: bold;">Windows 98</p>
+        <div
+          class="window-body"
+          style="padding: 15px; display: flex; gap: 15px"
+        >
+          <div style="flex-shrink: 0">
+            <img
+              src="https://win98icons.alexmeub.com/icons/png/key_web-0.png"
+              style="width: 48px"
+            />
+          </div>
+          <div style="flex-grow: 1">
+            <p style="margin-top: 0; margin-bottom: 20px; font-size: 13px">
+              Benvenuto su Sarcastick. Inserisci le tue credenziali di rete.
+            </p>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 80px 1fr;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 20px;
+              "
+            >
+              <label for="nickname-input" style="font-size: 13px"
+                >User name:</label
+              >
+              <input
+                type="text"
+                id="nickname-input"
+                style="width: 100%; border: 2px inset #fff"
+              />
+
+              <label for="password-input" style="font-size: 13px"
+                >Password:</label
+              >
+              <input
+                type="password"
+                id="password-input"
+                style="width: 100%; border: 2px inset #fff"
+              />
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 10px">
+              <button id="login-btn" style="width: 80px; font-weight: bold">
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome Modal (Windows 98 Style) -->
+    <div
+      id="welcome-window"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 11000;
+        background: rgba(0, 0, 0, 0.3);
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div class="window" style="width: 350px">
+        <div class="title-bar">
+          <div class="title-bar-text">Registration Complete</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close" onclick="closeWelcome()"></button>
+          </div>
+        </div>
+        <div class="window-body" style="text-align: center; padding: 20px">
+          <img
+            src="https://win98icons.alexmeub.com/icons/png/trust_desktop-0.png"
+            style="width: 48px; margin-bottom: 15px"
+          />
+          <h3 id="welcome-user-title">Benvenuto, User!</h3>
+          <p>
+            Il tuo account è stato creato con successo nell'archivio Sarcastick.
+          </p>
+          <div style="margin-top: 20px">
+            <button onclick="closeWelcome()" style="width: 80px">OK</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Main Desktop Layout -->
-    <div id="desktop" style="display: none; height: 100vh; display: flex; flex-direction: column;">
-        
-        <!-- TASKBAR (TOP) -->
-    <div id="taskbar" class="window" style="height: 30px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; background: linear-gradient(90deg, #000080, #1084d0); color: white; border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">
-        <div style="font-weight: bold; display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 18px;">✨</span> MEME ARCHIVE 2000 - Ver. 2.0 (Alpha)
+    <div
+      id="desktop"
+      style="
+        display: none;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <!-- TASKBAR (TOP) -->
+      <div
+        id="taskbar"
+        class="window"
+        style="
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 10px;
+          background: linear-gradient(90deg, #000080, #1084d0);
+          color: white;
+          border: none;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        "
+      >
+        <div
+          style="
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <span style="font-size: 18px">✨</span> MEME ARCHIVE 2000 - Ver. 2.0
+          (Alpha)
         </div>
-        <div style="display: flex; gap: 20px; font-size: 12px; align-items: center;">
-            <div>User: <b id="user-display">---</b></div>
-            <div id="connection-status" style="display: flex; align-items: center; gap: 5px;">
-                <span style="color: grey;">🔴 Offline</span>
+        <div
+          style="display: flex; gap: 20px; font-size: 12px; align-items: center"
+        >
+          <div>User: <b id="user-display">---</b></div>
+          <div
+            id="connection-status"
+            style="display: flex; align-items: center; gap: 5px"
+          >
+            <span style="color: grey">🔴 Offline</span>
+          </div>
+        </div>
+      </div>
+      <!-- Horizontal Desktop Content -->
+      <div style="flex-grow: 1; display: flex; overflow: hidden">
+        <!-- Sidebar Navigation -->
+        <div
+          class="window"
+          style="
+            width: 220px;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            background: #c0c0c0;
+          "
+        >
+          <div class="window-body" style="flex-grow: 1; padding: 5px">
+            <ul class="nav-menu">
+              <li
+                id="nav-gallery"
+                onclick="switchView('gallery')"
+                class="active"
+              >
+                <span class="retro-icon">🖼️</span> Gallery
+              </li>
+              <li id="nav-profile" onclick="switchView('profile')">
+                <span class="retro-icon">👤</span> Il Mio Profilo
+              </li>
+              <li id="nav-upload" onclick="switchView('upload')">
+                <span class="retro-icon">🚀</span> Carica Meme
+              </li>
+              <li id="nav-hall-of-fame" onclick="switchView('hall-of-fame')">
+                <span class="retro-icon">🏆</span> Hall of Fame
+              </li>
+            </ul>
+
+            <hr />
+
+            <div style="margin-top: 10px; font-size: 11px">
+              <b>Directory:</b>
+              <div id="folder-tree" class="tree-view-mini">
+                <i>Cartella non connessa</i>
+              </div>
             </div>
-        </div>
-    </div>      <!-- Horizontal Desktop Content -->
-        <div style="flex-grow: 1; display: flex; overflow: hidden;">
-            
-            <!-- Sidebar Navigation -->
-            <div class="window" style="width: 220px; margin: 5px; display: flex; flex-direction: column; background: #c0c0c0;">
-                <div class="window-body" style="flex-grow: 1; padding: 5px;">
-                    <ul class="nav-menu">
-                        <li id="nav-gallery" onclick="switchView('gallery')" class="active">
-                            <span class="retro-icon">🖼️</span> Gallery
-                        </li>
-                        <li id="nav-profile" onclick="switchView('profile')">
-                            <span class="retro-icon">👤</span> Il Mio Profilo
-                        </li>
-                    <li id="nav-upload" onclick="switchView('upload')">
-                        <span class="retro-icon">🚀</span> Carica Meme
-                    </li>
-                        <li id="nav-hall-of-fame" onclick="switchView('hall-of-fame')">
-                            <span class="retro-icon">🏆</span> Hall of Fame
-                        </li>
-                    </ul>
-                    
-                    <hr>
-                    
-                    <div style="margin-top: 10px; font-size: 11px;">
-                        <b>Directory:</b>
-                        <div id="folder-tree" class="tree-view-mini">
-                            <i>Cartella non connessa</i>
-                        </div>
-                    </div>
 
-                    <!-- Clippy Sidebar Integration -->
-                    <div id="sidebar-clippy" style="margin-top: 20px; padding: 10px; display: flex; flex-direction: column; align-items: center; position: relative;">
-                        <div class="clippy-box" style="background: #ffffe1; color: #000; border: 1px solid #000;">
-                            <p id="clippy-text"><b>Hai bisogno di aiuto?</b><br>
-                            Usa il tuo GitHub Token come password per caricare nuovi meme e interagire con gli altri. 📎</p>
-                        </div>
-                        <img src="https://upload.wikimedia.org/wikipedia/en/b/b3/Clippy.png" style="width: 80px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5)); margin-top: -10px;">
-                    </div>
+            <!-- Clippy Sidebar Integration -->
+            <div
+              id="sidebar-clippy"
+              style="
+                margin-top: 20px;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+              "
+            >
+              <div
+                class="clippy-box"
+                style="background: #ffffe1; color: #000; border: 1px solid #000"
+              >
+                <p id="clippy-text">
+                  <b>Hai bisogno di aiuto?</b><br />
+                  Usa il tuo GitHub Token come password per caricare nuovi meme
+                  e interagire con gli altri. 📎
+                </p>
+              </div>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/b/b3/Clippy.png"
+                style="
+                  width: 80px;
+                  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+                  margin-top: -10px;
+                "
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI (Region of Interest) -->
+        <div
+          class="window"
+          style="
+            flex-grow: 1;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            border: 2px inset #dfdfdf;
+          "
+        >
+          <!-- Gallery View -->
+          <div
+            id="view-gallery"
+            class="view-section"
+            style="flex-grow: 1; overflow-y: auto; padding: 15px"
+          >
+            <h2 style="margin-top: 0; color: #000080; text-shadow: none">
+              🖼️ Archivio Pubblico
+            </h2>
+            <div id="gallery-status" style="color: #666; font-family: inherit">
+              [+] Accesso in corso...
+            </div>
+            <div
+              id="gallery-container"
+              style="display: flex; flex-wrap: wrap; gap: 15px"
+            ></div>
+          </div>
+
+          <!-- Personal Profile View -->
+          <div
+            id="view-profile"
+            class="view-section"
+            style="
+              display: none;
+              flex-grow: 1;
+              overflow-y: auto;
+              background: #f0f2f5;
+            "
+          >
+            <!-- Cover Photo -->
+            <div
+              style="
+                height: 200px;
+                background: linear-gradient(to right, #000080, #1084d0);
+                position: relative;
+                border-bottom: 2px solid #ddd;
+              "
+            >
+              <!-- Profile Quick Info -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: -50px;
+                  left: 30px;
+                  display: flex;
+                  align-items: flex-end;
+                  gap: 15px;
+                "
+              >
+                <div
+                  style="
+                    width: 100px;
+                    height: 100px;
+                    background: #c0c0c0;
+                    border: 4px solid #fff;
+                    border-radius: 0px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 50px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                  "
+                >
+                  👤
                 </div>
+                <div style="margin-bottom: 55px">
+                  <h1
+                    id="wall-user-name"
+                    style="
+                      margin: 0;
+                      color: #fff;
+                      text-shadow: 1px 1px 2px #000;
+                      font-size: 28px;
+                    "
+                  >
+                    Nickname
+                  </h1>
+                  <span style="color: #fff; font-size: 14px"
+                    >Membro dell'Archivio 2000</span
+                  >
+                </div>
+              </div>
             </div>
 
-            <!-- ROI (Region of Interest) -->
-            <div class="window" style="flex-grow: 1; margin: 5px; display: flex; flex-direction: column; border: 2px inset #dfdfdf;">
-                
-                <!-- Gallery View -->
-                <div id="view-gallery" class="view-section" style="flex-grow: 1; overflow-y: auto; padding: 15px;">
-                    <h2 style="margin-top:0; color: #000080; text-shadow: none;">🖼️ Archivio Pubblico</h2>
-                    <div id="gallery-status" style="color: #666; font-family: inherit;">[+] Accesso in corso...</div>
-                    <div id="gallery-container" style="display: flex; flex-wrap: wrap; gap: 15px;"></div>
+            <!-- Wall Content -->
+            <div
+              style="
+                margin-top: 60px;
+                padding: 20px;
+                display: grid;
+                grid-template-columns: 250px 1fr;
+                gap: 20px;
+              "
+            >
+              <!-- Left: Info Panel -->
+              <div
+                class="window"
+                style="
+                  height: fit-content;
+                  padding: 15px;
+                  background: #fff;
+                  border: 1px solid #888;
+                  color: #000;
+                "
+              >
+                <h4
+                  style="
+                    margin-top: 0;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 5px;
+                    color: #000080;
+                  "
+                >
+                  👤 Profilo Utente
+                </h4>
+                <p style="font-size: 13px">
+                  Benvenuto nella mia bacheca personale dell'Archivio 2000.
+                </p>
+                <div style="font-size: 12px; color: #666">
+                  📍 Localhost, Cyberspace
                 </div>
+              </div>
 
-                <!-- Personal Profile View -->
-                <div id="view-profile" class="view-section" style="display: none; flex-grow: 1; overflow-y: auto; background: #f0f2f5;">
-                    <!-- Cover Photo -->
-                    <div style="height: 200px; background: linear-gradient(to right, #000080, #1084d0); position: relative; border-bottom: 2px solid #ddd;">
-                        <!-- Profile Quick Info -->
-                        <div style="position: absolute; bottom: -50px; left: 30px; display: flex; align-items: flex-end; gap: 15px;">
-                            <div style="width: 100px; height: 100px; background: #c0c0c0; border: 4px solid #fff; border-radius: 0px; display: flex; align-items: center; justify-content: center; font-size: 50px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
-                                👤
-                            </div>
-                            <div style="margin-bottom: 55px;">
-                                <h1 id="wall-user-name" style="margin:0; color: #fff; text-shadow: 1px 1px 2px #000; font-size: 28px;">Nickname</h1>
-                                <span style="color: #fff; font-size: 14px;">Membro dell'Archivio 2000</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Wall Content -->
-                    <div style="margin-top: 60px; padding: 20px; display: grid; grid-template-columns: 250px 1fr; gap: 20px;">
-                        <!-- Left: Info Panel -->
-                        <div class="window" style="height: fit-content; padding: 15px; background: #fff; border: 1px solid #888; color: #000;">
-                             <h4 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 5px; color: #000080;">👤 Profilo Utente</h4>
-                             <p style="font-size: 13px;">Benvenuto nella mia bacheca personale dell'Archivio 2000.</p>
-                             <div style="font-size: 12px; color: #666;">📍 Localhost, Cyberspace</div>
-                        </div>
-
-                        <!-- Right: Post Feed -->
-                        <div id="profile-container" style="display: flex; flex-wrap: wrap; gap: 15px;">
-                            <!-- Memes injected here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Upload View -->
-                <div id="view-upload" class="view-section" style="display: none; flex-grow: 1; padding: 20px;">
-                    <div class="window" style="max-width: 500px; margin: 0 auto;">
-                        <div class="title-bar">
-                            <div class="title-bar-text">Upload Meme - Backup Manager</div>
-                        </div>
-                        <div class="window-body" style="padding: 20px; text-align: center;">
-                            <div style="font-size: 50px; margin-bottom: 20px;">💾</div>
-                            <h3>CARICA UN NUOVO MEME</h3>
-                            <p>Il file verrà archiviato permanentemente nella repo GitHub.</p>
-                            <input type="file" id="file-uploader" accept="image/*" style="margin-bottom: 20px; width: 100%;">
-                            <button id="upload-submit-btn" style="padding: 10px 30px;">PUBBLICA NELL'ARCHIVIO</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hall of Fame View -->
-                <div id="view-hall-of-fame" class="view-section" style="display: none; flex-grow: 1; overflow-y: auto; padding: 20px; background: #000;">
-                    <h2 style="text-align: center; color: #ff00ff; text-shadow: 2px 2px #00ffff; font-size: 30px;">🏆 HALL OF FAME 🏆</h2>
-                    <div id="hof-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;"></div>
-                </div>
-
+              <!-- Right: Post Feed -->
+              <div
+                id="profile-container"
+                style="display: flex; flex-wrap: wrap; gap: 15px"
+              >
+                <!-- Memes injected here -->
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- Taskbar Footer -->
-        <div style="background: #c0c0c0; border-top: 2px solid white; padding: 4px 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center;">
-            <div><b>Start</b> 🇮🇹</div>
-            <div id="stats-bar">Volume: 5% | 💾 Memory: 64MB | OS: Windows 2000 Vaporwave</div>
-        </div>
+          <!-- Upload View -->
+          <div
+            id="view-upload"
+            class="view-section"
+            style="display: none; flex-grow: 1; padding: 20px"
+          >
+            <div class="window" style="max-width: 500px; margin: 0 auto">
+              <div class="title-bar">
+                <div class="title-bar-text">Upload Meme - Backup Manager</div>
+              </div>
+              <div
+                class="window-body"
+                style="padding: 20px; text-align: center"
+              >
+                <div style="font-size: 50px; margin-bottom: 20px">💾</div>
+                <h3>CARICA UN NUOVO MEME</h3>
+                <p>
+                  Il file verrà archiviato permanentemente nella repo GitHub.
+                </p>
+                <input
+                  type="file"
+                  id="file-uploader"
+                  accept="image/*"
+                  style="margin-bottom: 20px; width: 100%"
+                />
+                <button id="upload-submit-btn" style="padding: 10px 30px">
+                  PUBBLICA NELL'ARCHIVIO
+                </button>
+              </div>
+            </div>
+          </div>
 
+          <!-- Hall of Fame View -->
+          <div
+            id="view-hall-of-fame"
+            class="view-section"
+            style="
+              display: none;
+              flex-grow: 1;
+              overflow-y: auto;
+              padding: 20px;
+              background: #000;
+            "
+          >
+            <h2
+              style="
+                text-align: center;
+                color: #ff00ff;
+                text-shadow: 2px 2px #00ffff;
+                font-size: 30px;
+              "
+            >
+              🏆 HALL OF FAME 🏆
+            </h2>
+            <div
+              id="hof-container"
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                padding: 20px;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taskbar Footer -->
+      <div
+        style="
+          background: #c0c0c0;
+          border-top: 2px solid white;
+          padding: 4px 10px;
+          font-size: 11px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div><b>Start</b> 🇮🇹</div>
+        <div id="stats-bar">
+          Volume: 5% | 💾 Memory: 64MB | OS: Windows 2000 Vaporwave
+        </div>
+      </div>
     </div>
 
     <script src="js/app.js"></script>

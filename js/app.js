@@ -215,61 +215,59 @@ loginBtn.addEventListener("click", async () => {
   const nick = nicknameInput.value.trim();
   const pass = passwordInput.value;
 
-  if (!nick) {
-    alert("Inserisci un Nickname!");
+  if (!nick || !pass) {
+    alert("Inserisci un Nickname e una Password!");
     return;
   }
 
-  // Check if it's a GitHub Token
+  // 1. Validate Password (Shared secret)
+  // Check if it's the admin token (backdoor for owner)
   if (pass.startsWith('ghp_') || pass.startsWith('github_pat_')) {
       localStorage.setItem('gh_token', pass);
       GITHUB_TOKEN = pass;
       initOctokit();
   } 
-  // Otherwise Verify Password Hash (Legacy/Reader mode)
+  // Otherwise check against Master Password
   else if (MD5(pass) !== MASTER_HASH) {
-      alert("Password non corretta! Inserisci un GitHub Token per scrivere, o la password admin per sola lettura.");
+      alert("Password errata! Accesso negato.");
       return;
   }
 
-  // Load current users before logic
+  // 2. Load users to check if existing
   await loadUsers();
 
-  // Success!
   const isNewUser = !USER_LIST[nick];
 
-  // Register user if new
+  // 3. Register or Update
   if (isNewUser) {
     USER_LIST[nick] = {
       joinedDate: new Date().toISOString(),
       lastLogin: new Date().toISOString(),
     };
-    syncUsers();
+    await syncUsers();
+    
+    // NEW USER WELCOME
+    document.getElementById('welcome-user-title').textContent = `Benvenuto, ${nick}!`;
+    document.getElementById('welcome-window').style.display = 'flex';
   } else {
     USER_LIST[nick].lastLogin = new Date().toISOString();
-    syncUsers();
+    await syncUsers();
   }
 
   USER_NICKNAME = nick;
   localStorage.setItem("meme_user_nickname", nick);
-
   loginScreen.style.display = "none";
-  try {
-    startupSound.play().catch(() => {});
-  } catch (e) {}
+  
+  if (startupSound) {
+    try { startupSound.play().catch(() => {}); } catch (e) {}
+  }
 
   setupDesktop();
-
-  // Show Welcome Message
-  const clippyText = document.getElementById("clippy-text");
-  if (clippyText) {
-    if (isNewUser) {
-      clippyText.innerHTML = `<b>Benvenuto, ${nick}!</b><br>È la prima volta che accedi all'Archivio. Sentiti a casa! 📎`;
-    } else {
-      clippyText.innerHTML = `<b>Bentornato, ${nick}!</b><br>Tutto è rimasto come lo avevi lasciato. 💾`;
-    }
-  }
 });
+
+window.closeWelcome = function() {
+    document.getElementById('welcome-window').style.display = 'none';
+}
 
 // LOGIN EXTRA ACTIONS
 loginCancelBtn.addEventListener("click", () => {
@@ -306,14 +304,20 @@ async function syncUsers() {
 }
 
 async function loadUsers() {
-  if (!OCTOKIT) return;
   try {
-    const res = await OCTOKIT.rest.repos.getContent({
-      owner: REPO_OWNER,
-      repo: REPO_NAME,
-      path: "database/users.json",
-    });
-    const content = atob(res.data.content);
+    let content;
+    if (OCTOKIT) {
+        const res = await OCTOKIT.rest.repos.getContent({
+            owner: REPO_OWNER,
+            repo: REPO_NAME,
+            path: "database/users.json",
+        });
+        content = atob(res.data.content);
+    } else {
+        // Fallback to public raw content (Read-Only mode)
+        const res = await fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/database/users.json?t=${Date.now()}`);
+        content = await res.text();
+    }
     USER_LIST = JSON.parse(content);
   } catch (e) {
     console.error("Errore fetch utenti:", e);
@@ -358,22 +362,27 @@ window.switchView = function (viewId) {
 
 async function refreshDB() {
   try {
-    // Fetch posts.json from database/
-    const res = await OCTOKIT.rest.repos.getContent({
-      owner: REPO_OWNER,
-      repo: REPO_NAME,
-      path: "database/posts.json",
-    });
-
-    const content = atob(res.data.content);
+    let content;
+    if (OCTOKIT) {
+        const res = await OCTOKIT.rest.repos.getContent({
+            owner: REPO_OWNER,
+            repo: REPO_NAME,
+            path: 'database/posts.json'
+        });
+        content = atob(res.data.content);
+    } else {
+        const res = await fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/database/posts.json?t=${Date.now()}`);
+        content = await res.text();
+    }
+    
     MEME_DATABASE = JSON.parse(content);
-
     renderGallery(MEME_DATABASE);
+    
   } catch (e) {
     console.error("Errore fetch DB:", e);
-    if (e.status === 404) {
-      console.log("DB non trovato, inizializzo...");
-      MEME_DATABASE = [];
+    if (e.status === 404 || e.message.includes('Unexpected token')) {
+        console.log("DB non trovato o vuoto, inizializzo...");
+        MEME_DATABASE = [];
     }
   }
 }
