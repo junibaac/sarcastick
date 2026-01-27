@@ -13,9 +13,10 @@ window.switchView = function (viewId) {
       .forEach((li) => li.classList.remove("active"));
     document.getElementById(`nav-${viewId}`)?.classList.add("active");
   
-    if (viewId === "profile") renderProfile();
+    if (viewId === "profile") renderProfile(USER_NICKNAME);
     if (viewId === "hall-of-fame") renderHallOfFame();
     if (viewId === "gallery") renderGallery(MEME_DATABASE);
+    if (viewId === "members") renderMembers();
   };
   
   function renderGallery(memes, containerId = "gallery-container") {
@@ -43,34 +44,72 @@ window.switchView = function (viewId) {
     };
   
     const hasLiked = post.likedBy.includes(USER_NICKNAME);
+    const likeList = post.likedBy.length > 0 ? `Piace a: ${post.likedBy.join(", ")}` : "Ancora nessun like";
   
     card.innerHTML = `
           <img src="${post.url}" title="${post.name}" loading="lazy">
           <div class="meme-info">
               <b title="${post.name}">${post.name}</b>
-              <span class="like-counter ${hasLiked ? "active" : ""}" onclick="event.stopPropagation(); votePost(${post.id})">
+              <span class="like-counter ${hasLiked ? "active" : ""}" 
+                    title="${likeList}"
+                    onclick="event.stopPropagation(); votePost(${post.id})">
                   ${hasLiked ? "❤️" : "🤍"} ${post.likedBy.length}
               </span>
           </div>
           <div style="font-size: 10px; color: #3b5998; text-align: left; margin-top: 5px;">
-              Node: <b>${post.uploadedBy}</b>
+              Node: <b onclick="event.stopPropagation(); renderProfile('${post.uploadedBy}')" style="cursor:pointer; text-decoration:underline;">${post.uploadedBy}</b>
           </div>
       `;
     return card;
   }
   
-  function renderProfile() {
+  function renderProfile(targetNick) {
+    targetNick = targetNick || USER_NICKNAME;
+    window.switchView("profile");
+    
     // Update Profile Header Name
     const wallName = document.getElementById("wall-user-name");
-    if(wallName) wallName.textContent = USER_NICKNAME;
+    if(wallName) wallName.textContent = targetNick;
+
+    // Show/Hide Quick Post Box (only if it's my own profile)
+    const quickPost = document.querySelector("#view-profile .window");
+    if(quickPost) quickPost.style.display = (targetNick === USER_NICKNAME) ? "block" : "none";
 
     // Update names in the quick post box labels if present
     document.querySelectorAll(".current-user-name").forEach(el => {
         el.textContent = USER_NICKNAME;
     });
 
-    const myPosts = MEME_DATABASE.filter((p) => p.uploadedBy === USER_NICKNAME);
+    const myPosts = MEME_DATABASE.filter((p) => p.uploadedBy === targetNick);
     renderGallery(myPosts, "profile-container");
+  }
+
+  function renderMembers() {
+    const container = document.getElementById("members-list");
+    if(!container) return;
+    container.innerHTML = "";
+    
+    // Get unique users from USER_LIST and also from those who posted something
+    const allUsers = new Set(Object.keys(USER_LIST));
+    MEME_DATABASE.forEach(p => allUsers.add(p.uploadedBy));
+
+    allUsers.forEach(nick => {
+        const card = document.createElement("div");
+        card.className = "window";
+        card.style.padding = "10px";
+        card.style.textAlign = "center";
+        card.style.cursor = "pointer";
+        card.onclick = () => renderProfile(nick);
+        
+        card.innerHTML = `
+            <div style="font-size: 40px; margin-bottom: 10px;">👤</div>
+            <b style="color: #000080;">${nick}</b>
+            <div style="font-size: 10px; color: #666; margin-top: 5px;">
+                ${MEME_DATABASE.filter(p => p.uploadedBy === nick).length} posts
+            </div>
+        `;
+        container.appendChild(card);
+    });
   }
 
   function renderHallOfFame() {

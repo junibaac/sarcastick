@@ -75,6 +75,9 @@
               <li id="nav-hall-of-fame" onclick="switchView('hall-of-fame')">
                 <span class="retro-icon">🏆</span> HALL OF FAME
               </li>
+              <li id="nav-members" onclick="switchView('members')">
+                <span class="retro-icon">👥</span> MEMBRI
+              </li>
             </ul>
 
             <hr />
@@ -304,6 +307,18 @@
           </div>
 
 
+
+          <!-- Members View -->
+          <div
+            id="view-members"
+            class="view-section"
+            style="display: none; flex-grow: 1; padding: 20px; overflow-y: auto;"
+          >
+            <h2 style="margin-top: 0; color: #000080;">👥 Membri della Community</h2>
+            <div id="members-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+                <!-- Users injected here -->
+            </div>
+          </div>
 
           <!-- Hall of Fame View -->
           <div
