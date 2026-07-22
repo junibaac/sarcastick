@@ -50,7 +50,7 @@
       },
       {
         "user": "Icarus",
-        "text": "Ã¨ nata l'era di SkyNet",
+        "text": "ÃƒÂ¨ nata l'era di SkyNet",
         "date": "22:03"
       },
       {
@@ -74,7 +74,7 @@
     "comments": [
       {
         "user": "budapest",
-        "text": "debito tecnico più grande della Grecia",
+        "text": "debito tecnico piÃ¹ grande della Grecia",
         "date": "22:43"
       }
     ]
@@ -174,11 +174,21 @@
   },
   {
     "id": 1784729506206,
-    "name": "Bel sito, accoglienza 5/5, vibes 5/5, responsiveness 2/5, accessibilit� 1/5, attivit� 4/5. Totale 3.4/5",
+    "name": "Bel sito, accoglienza 5/5, vibes 5/5, responsiveness 2/5, accessibilità 1/5, attività 4/5. Totale 3.4/5",
     "fileName": "1784729504609_IMG_3647.webp",
     "url": "https://raw.githubusercontent.com/junibaac/sarcastick/main/uploads/1784729504609_IMG_3647.webp",
     "uploadedBy": "Vladdo",
     "uploadDate": "2026-07-22T14:11:46.206Z",
+    "likedBy": [],
+    "comments": []
+  },
+  {
+    "id": 1784752210611,
+    "name": "\"Raga sto implementando il liquid glass\" \nps:che � sto limite da 300kb sul file",
+    "fileName": "1784752208456_Screenshot_2026-03-24_143859.png",
+    "url": "https://raw.githubusercontent.com/junibaac/sarcastick/main/uploads/1784752208456_Screenshot_2026-03-24_143859.png",
+    "uploadedBy": "Vladdo",
+    "uploadDate": "2026-07-22T20:30:10.611Z",
     "likedBy": [],
     "comments": []
   }
